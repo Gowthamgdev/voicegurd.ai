@@ -17,7 +17,7 @@ async def detect_media(file: UploadFile = File(...)):
     result=run_model(file_bytes)
 
     return DetectionResponse(
-        sucess=True,
+        success=True,
         file_name=file.filename,
         media_type=file.content_type,
         is_fake=result["is_fake"],
