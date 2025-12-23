@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 
-app = FastAPI()
+app = FastAPI(
+    title="VoiceGuard API",
+    description="API for VoiceGuard to detect malicious media",
+    version="1.0.0" 
+)
 
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+
