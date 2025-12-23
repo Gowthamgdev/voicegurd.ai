@@ -1,7 +1,9 @@
-from fastapi import APIRouter, UploadFile, File
+from fastapi import APIRouter, UploadFile, File, Request
 from validations.validators import validate_file_type
 from services.model import run_model
 from schemas.response import DetectionResponse
+from validations.limiter import limiter
+
 
 
 
@@ -9,8 +11,10 @@ router = APIRouter()
 
 
 @router.post("/detect", response_model=DetectionResponse)
-async def detect_media(file: UploadFile = File(...)):
+@limiter.limit("5/minute")
+async def detect_media(request: Request,file: UploadFile = File(...)):
     
+
     validate_file_type(file)
     
     file_bytes = await file.read()
