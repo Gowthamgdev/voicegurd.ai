@@ -1,8 +1,12 @@
 from fastapi import APIRouter, UploadFile, File, Request
+
 from validations.validators import validate_file_type
-from services.model import run_model
-from schemas.response import DetectionResponse, RateLimitError
 from validations.limiter import limiter
+
+from services.model import run_model
+
+from schemas.response import DetectionResponse, RateLimitError
+
 
 
 
