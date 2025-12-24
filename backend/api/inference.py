@@ -1,7 +1,7 @@
 from fastapi import APIRouter, UploadFile, File, Request
 from validations.validators import validate_file_type
 from services.model import run_model
-from schemas.response import DetectionResponse
+from schemas.response import DetectionResponse, RateLimitError
 from validations.limiter import limiter
 
 
@@ -10,10 +10,15 @@ from validations.limiter import limiter
 router = APIRouter()
 
 
-@router.post("/detect", response_model=DetectionResponse)
+@router.post("/detect", 
+             response_model=DetectionResponse,responses={
+        429: {
+            "model": RateLimitError,
+            "description": "Rate limit exceeded"
+        }
+    })
 @limiter.limit("5/minute")
 async def detect_media(request: Request,file: UploadFile = File(...)):
-    
 
     validate_file_type(file)
     

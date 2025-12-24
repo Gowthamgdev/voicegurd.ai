@@ -8,3 +8,8 @@ class DetectionResponse(BaseModel):
     confidence: float
     model_version: str
     message: str
+
+class RateLimitError(BaseModel):
+    success: bool
+    error: str
+    message: str
