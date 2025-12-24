@@ -13,3 +13,6 @@ class RateLimitError(BaseModel):
     success: bool
     error: str
     message: str
+
+class ValidationErrorResponse(BaseModel):
+    detail: str

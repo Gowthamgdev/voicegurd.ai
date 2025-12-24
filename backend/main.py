@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request
 
 from api.inference import router as inf_router
 
-from slowapi import Limiter, _rate_limit_exceeded_handler
+
 from slowapi.middleware import SlowAPIMiddleware
 from slowapi.errors import RateLimitExceeded
 

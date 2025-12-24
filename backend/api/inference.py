@@ -5,7 +5,7 @@ from validations.limiter import limiter
 
 from services.model import run_model
 
-from schemas.response import DetectionResponse, RateLimitError
+from schemas.response import DetectionResponse, RateLimitError, ValidationErrorResponse
 
 
 
@@ -16,13 +16,17 @@ router = APIRouter()
 
 @router.post("/detect", 
              response_model=DetectionResponse,responses={
-        429: {
-            "model": RateLimitError,
-            "description": "Rate limit exceeded"
-        }
+            400: {
+                "model": ValidationErrorResponse,
+                "description": "Invalid file type or file size exceeds limit"
+            },
+            429: {
+                "model": RateLimitError,
+                "description": "Rate limit exceeded"
+            }
     })
 @limiter.limit("5/minute")
-async def detect_media(request: Request,file: UploadFile = File(...)):
+async def detect_media(request: Request,file: UploadFile = File(..., description="Upload an audio or video file for fake detection(max 50MB)")):
 
     validate_file_type(file)
     

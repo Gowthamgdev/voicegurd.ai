@@ -12,9 +12,12 @@ def validate_file_type(file: UploadFile):#this function validates file type and 
             detail="Unsupported media type."
         )
     
+    #validate file size
     file.file.seek(0,2)
     size=file.file.tell()
     file.file.seek(0)
+
+
     if size > max_file_size_mb * 1024 * 1024:
         raise HTTPException(
             status_code=400,
