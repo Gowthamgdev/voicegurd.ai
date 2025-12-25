@@ -12,15 +12,15 @@ from fastapi.responses import JSONResponse
 
 # creating fast api app
 app = FastAPI(
-    title="Malicious-Media-Detector API",
-    description="API for VoiceGuard to detect malicious media",
+    title="VoiceGuard API",
+    description="API for VoiceGuard to detect malicious media", 
     version="v1.1.3" 
 )
 
 # HEALTH CHECK 
 @app.get("/")
 async def health():
-    return {"status": "Malicious-media-detector API running"}
+    return {"status": "VoiceGuard API running"}
 
 
 # Attach limiter to app
